@@ -24,7 +24,19 @@ contract ProxyRegistry {
   mapping(address => OwnableDelegateProxy) public proxies;
 }
 
-contract Wapuus is ERC1155, Ownable {
+
+//@replacement
+    // Finns
+    // FINN_PROVENANCE => FINN_PROVENANCE
+    // wapuuPrice 
+    // wapuuRenamePrice
+    // wapuuNames
+    // balanceOfFinn => balanceOfFinn
+    // reserveFinns
+    // wapuuReserve
+    // changeFinnName => changeFinnName
+    // wapuuNameChange
+contract Finns is ERC1155, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
@@ -36,59 +48,40 @@ contract Wapuus is ERC1155, Ownable {
      */
     bytes4 constant _INTERFACE_ID_ROYALTIES = 0x44c74bcc;
 
-    string public WAPUU_PROVENANCE = ""; // IPFS URL WILL BE ADDED WHEN WAPUUS ARE ALL SOLD OUT 
+    string public FINN_PROVENANCE = ""; // IPFS URL WILL BE ADDED WHEN Finns ARE ALL SOLD OUT 
 
     string public LICENSE_TEXT = "GPLv2"; // IT IS WHAT IT SAYS
 
     bool licenseLocked = false; // TEAM CAN'T EDIT THE LICENSE AFTER THIS GETS TRUE
 
-    uint256 public wapuuPrice = 1000000; // 0.02 ETH
+    uint256 public finnPrice = 1000000; // 0.02 ETH
 
-    uint256 public wapuuRenamePrice = 10000000000000000; // 0.01 ETH
+    uint256 public finnRenamePrice = 10000000000000000; // 0.01 ETH
     
     uint96 public royaltyBPS = 600; // 6% royalty for Rarible/Mintable
 
-    uint public constant maxWapuuPurchase = 40;
+    uint public constant maxFinnPurchase = 40;
 
-    uint256 public constant MAX_WAPUUS = 2222;
+    uint256 public constant MAX_FINNS = 2222;
 
     bool public saleIsActive = false;
 
-    mapping(uint => string) public wapuuNames;
+    mapping(uint => string) public finnNames;
     
-    // Reserve 50 Wapuus for team - Giveaways/Prizes etc
-    uint public wapuuReserve = 50;
+    // Reserve 50 Finns for team - Giveaways/Prizes etc
+    uint public finnReserve = 50;
 
     //for OpenSea gas free sale listing
     //address proxyRegistryAddress = 0xF57B2c51dED3A29e6891aba85459d600256Cf317; //rinkeby
     address proxyRegistryAddress = 0xa5409ec958C83C3f309868babACA7c86DCB077c1; //mainnet
     
-    event wapuuNameChange(address _by, uint _tokenId, string _name);
+    event finnNameChange(address _by, uint _tokenId, string _name);
     
     event licenseisLocked(string _licenseText);
 
-    constructor() ERC1155("https://api.web3wp.com/wapuus/{id}") { }
+    constructor() ERC1155("https://api.web3wp.com/Finns/") { }
 
-    /**
-     * @dev Sets a new URI for all token types, by relying on the token type ID
-     * substitution mechanism
-     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP].
-     *
-     * By this mechanism, any occurrence of the `\{id\}` substring in either the
-     * URI or any of the amounts in the JSON file at said URI will be replaced by
-     * clients with the token type ID.
-     *
-     * For example, the `https://token-cdn-domain/\{id\}.json` URI would be
-     * interpreted by clients as
-     * `https://token-cdn-domain/000000000000000000000000000000000000000000000000000000000004cce0.json`
-     * for token type ID 0x4cce0.
-     *
-     * See {uri}.
-     *
-     * Because these URIs cannot be meaningfully represented by the {URI} event,
-     * this function emits no events.
-     */
-    function setURI(string memory newuri) public onlyOwner {
+    function setURI(string memory newuri) public onlyOwner {  //set new base URI
         _setURI(newuri);
     }
 
@@ -118,7 +111,7 @@ contract Wapuus is ERC1155, Ownable {
      * Returns balance of all tokens owned by address.
      * Equivalent to balanceOf(address) in an ERC721 (different in ERC1155)
      */
-    function balanceOfWapuu(address account) public view virtual returns (uint256) {
+    function balanceOfFinn(address account) public view virtual returns (uint256) {
         require(account != address(0), "No zero");
 
         uint256 balance = 0;
@@ -172,14 +165,14 @@ contract Wapuus is ERC1155, Ownable {
         }
     }
 
-    function reserveWapuus(address _to, uint256 _reserveAmount) public onlyOwner {        
-        require(_reserveAmount > 0 && _reserveAmount <= wapuuReserve, "No rsrv");
+    function reserveFinn(address _to, uint256 _reserveAmount) public onlyOwner {        
+        require(_reserveAmount > 0 && _reserveAmount <= finnReserve, "No rsrv");
         _mintNFTs(_to, _reserveAmount);
-        wapuuReserve = wapuuReserve - _reserveAmount;
+        finnReserve = finnReserve - _reserveAmount;
     }
 
     function setProvenanceHash(string memory provenanceHash) public onlyOwner {
-        WAPUU_PROVENANCE = provenanceHash;
+        FINN_PROVENANCE = provenanceHash;
     }
 
     function flipSaleState() public onlyOwner {
@@ -206,14 +199,14 @@ contract Wapuus is ERC1155, Ownable {
     
     // Change the mintPrice
     function setMintPrice(uint256 newPrice) public onlyOwner {
-        require(newPrice != wapuuPrice, "Not new");
-        wapuuPrice = newPrice;
+        require(newPrice != finnPrice, "Not new");
+        finnPrice = newPrice;
     }
     
-    // Change the wapuuRenamePrice
+    // Change the finnRenamePrice
     function setRenamePrice(uint256 newPrice) public onlyOwner {
-        require(newPrice != wapuuRenamePrice, "Not new");
-        wapuuRenamePrice = newPrice;
+        require(newPrice != finnRenamePrice, "Not new");
+        finnRenamePrice = newPrice;
     }
     
     // Change the royaltyBPS
@@ -222,27 +215,27 @@ contract Wapuus is ERC1155, Ownable {
         royaltyBPS = newRoyaltyBPS;
     }
 
-    function mintWapuus(uint numberOfTokens) public payable {
+    function mintFinns(uint numberOfTokens) public payable {
         require(saleIsActive, "Sale Inactv");
-        require(numberOfTokens > 0 && numberOfTokens <= maxWapuuPurchase, "Max 20");
-        require(totalSupply() + numberOfTokens <= MAX_WAPUUS, "Excds max sply");
-        require(msg.value == wapuuPrice * numberOfTokens, "Chk prce");
+        require(numberOfTokens > 0 && numberOfTokens <= maxFinnPurchase, "Max 20");
+        require(totalSupply() + numberOfTokens <= MAX_FINNS, "Excds max sply");
+        require(msg.value == finnPrice * numberOfTokens, "Chk prce");
         
         _mintNFTs(msg.sender, numberOfTokens);
     }
 
-    function changeWapuuName(uint _tokenId, string memory _name) public payable {
+    function changeFinnName(uint _tokenId, string memory _name) public payable {
         require(balanceOf(msg.sender, _tokenId) == 1, "Prmsns Err");
-        require(sha256(bytes(_name)) != sha256(bytes(wapuuNames[_tokenId])), "Not new");
-        require(msg.value == wapuuRenamePrice, "Chk prce");
-        wapuuNames[_tokenId] = _name;
+        require(sha256(bytes(_name)) != sha256(bytes(finnNames[_tokenId])), "Not new");
+        require(msg.value == finnRenamePrice, "Chk prce");
+        finnNames[_tokenId] = _name;
         
-        emit wapuuNameChange(msg.sender, _tokenId, _name);
+        emit finnNameChange(msg.sender, _tokenId, _name);
     }
     
-    function viewWapuuName(uint _tokenId) public view returns( string memory ){
+    function viewFinnName(uint _tokenId) public view returns( string memory ){
         require( _tokenId < totalSupply(), "Invld Tkn" );
-        return wapuuNames[_tokenId];
+        return finnNames[_tokenId];
     }
 
     //Rarible royalty interface new

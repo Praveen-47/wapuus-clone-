@@ -66,34 +66,34 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  wapuus:
+  Finns:
     handler: handler.getWapuu
     events:
       - httpApi:
-          path: /wapuus/{id}
+          path: /Finns/{id}
           method: GET
   verify:
     handler: handler.postVerify
     events:
       - httpApi:
-          path: /wapuus/verify
+          path: /Finns/verify
           method: POST
   verify-collector:
     handler: handler.postOGVerify
     events:
       - httpApi:
-          path: /wapuus/verify-collector
+          path: /Finns/verify-collector
           method: POST
   
   verify-owned:
     handler: handler.postOwned
     events:
       - httpApi:
-          path: /wapuus/owned
+          path: /Finns/owned
           method: POST
   owned:
     handler: handler.getOwned
     events:
       - httpApi:
-          path: /wapuus/owned/{wallet}
+          path: /Finns/owned/{wallet}
           method: GET

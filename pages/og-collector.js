@@ -41,7 +41,7 @@ export default function Verify() {
         .then(function (accounts) {
           window.web3.eth.net.getNetworkType()
           // checks if connected network is mainnet (change this to rinkeby if you wanna test on testnet)
-          .then((network) => {console.log(network);if(network != "main"){alert("You are on " + network+ " network. Change network to mainnet or you won't be able to do anything here")} });  
+          .then((network) => {console.log(network);if(network != "rinkeby"){alert("You are on " + network+ " network. Change network to rinkeby or you won't be able to do anything here")} });  
           let wallet = accounts[0]
           setWalletAddress(wallet)
           setSignedIn(true)

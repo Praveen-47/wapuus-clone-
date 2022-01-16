@@ -6,7 +6,7 @@ export function Specials({nfts = []}) {
   if (!nfts.length) { 
     return (
     <>
-    <h1 className="text-center text-5xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">No special edition Wapuus are owned by this wallet.</h1>
+    <h1 className="text-center text-5xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">No special edition Finns are owned by this wallet.</h1>
     <div className="flex justify-around mt-10">
       <span className="flex Poppitandfinchsans text-3xl text-center text-white">
       <Link href="/">
@@ -22,7 +22,7 @@ export function Specials({nfts = []}) {
   return (
     <div className="flex flex-col items-center">
         <div className="text-center text-4xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">
-            This is the secret content for any special edition Wapuus you own:
+            This is the secret content for any special edition Finns you own:
         </div>
         <div className="flex justify-center">
           <div className="p-4">

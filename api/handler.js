@@ -7,7 +7,7 @@ module.exports.getWapuu = async (event) => {
   console.log("Event", event)
   console.log("Stage", process.env.STAGE)
 
-  const defaultDescription = "Wapuu is the lovable, open source, and (un)official mascot of WordPress. Wapuu swag has been created and collected at WordCamp conferences around the world. [Web3 WP](https://web3wp.com) has taken the next step by building a generative art project of 2,222 unique Wapuus that can be minted as an NFT, collected, and traded by the WordPress community.";
+  const defaultDescription = "Wapuu is the lovable, open source, and (un)official mascot of WordPress. Wapuu swag has been created and collected at WordCamp conferences around the world. [Web3 WP](https://web3wp.com) has taken the next step by building a generative art project of 2,222 unique Finns that can be minted as an NFT, collected, and traded by the WordPress community.";
  
   // import the json containing all metadata. not recommended, try to fetch the database from a middleware if possible, I use MONGODB for example
   const traits = require('./all-traits.json')
@@ -34,8 +34,8 @@ module.exports.getWapuu = async (event) => {
       ),
     };
   } else if (tokenId < totalSupply) {
-  //const totalWapuus = 1000;
-  //if(tokenId < totalWapuus) {
+  //const totalFinns = 1000;
+  //if(tokenId < totalFinns) {
 
     // IF YOU ARE NOT USING CUSTOM NAMES, JUST USE THIS
     //let tokenName= `Wapuu #${parseInt( tokenId )}`
@@ -74,8 +74,8 @@ module.exports.getWapuu = async (event) => {
     var metadata = {
       "name": `Wapuu #${tokenId}`,
       "description": defaultDescription,
-      "image": "https://wapuus-nft.s3.amazonaws.com/default.png",
-      "external_url": "https://wapuus-nft.s3.amazonaws.com/default.png",
+      "image": "https://Finns-nft.s3.amazonaws.com/default.png",
+      "external_url": "https://Finns-nft.s3.amazonaws.com/default.png",
       "pending": true
     }
   
@@ -144,10 +144,10 @@ module.exports.postVerify = async (event) => {
   }
   //look up ownership of all special tokens for this address in batch.
   //This is a workaround because my custom tokensOfOwner() method had a bug in the version deployed to mainnet
-  const ownedWapuus = await wapuuContract.methods.balanceOfBatch(addresses,specials).call() 
-  console.log("Owned Wapuus",ownedWapuus);
+  const ownedFinns = await wapuuContract.methods.balanceOfBatch(addresses,specials).call() 
+  console.log("Owned Finns",ownedFinns);
 
-  ownedWapuus.forEach((owned, key) => {
+  ownedFinns.forEach((owned, key) => {
     if ( parseInt(owned) ) {
       let meta = traits[parseInt(specials[key])]
       if ( meta.secret_content ) {
@@ -224,7 +224,7 @@ module.exports.postOGVerify = async (event) => {
   };
 };
 
-//Handle verifying wallet ownership to return owned renamable Wapuus
+//Handle verifying wallet ownership to return owned renamable Finns
 module.exports.postOwned = async (event) => {
 
   // import the json containing all metadata. For a large collection use a DB probably.
@@ -293,11 +293,11 @@ module.exports.postOwned = async (event) => {
       
   //look up ownership of all special tokens for this address in batch.
   //This is a workaround because my custom tokensOfOwner() method had a bug in the version deployed to mainnet
-  const ownedWapuus = await wapuuContract.methods.balanceOfBatch(addresses,tokens).call() 
-  //console.log("Owned Wapuus",ownedWapuus);
+  const ownedFinns = await wapuuContract.methods.balanceOfBatch(addresses,tokens).call() 
+  //console.log("Owned Finns",ownedFinns);
 
   output = await Promise.all(tokens.map(async (tokenId) => {
-    if ( parseInt( ownedWapuus[tokenId] ) ) {
+    if ( parseInt( ownedFinns[tokenId] ) ) {
       let meta = traits[tokenId]
       if ( meta.secret_content ) { //skip special editions
         return null;
@@ -322,7 +322,7 @@ module.exports.postOwned = async (event) => {
   };
 };
 
-//get list of renamable owned wapuus for a given address
+//get list of renamable owned Finns for a given address
 module.exports.getOwned = async (event) => {
 
   // import the json containing all metadata. For a large collection use a DB probably.
@@ -365,11 +365,11 @@ module.exports.getOwned = async (event) => {
       
   //look up ownership of all special tokens for this address in batch.
   //This is a workaround because my custom tokensOfOwner() method had a bug in the version deployed to mainnet
-  const ownedWapuus = await wapuuContract.methods.balanceOfBatch(addresses,tokens).call() 
-  //console.log("Owned Wapuus",ownedWapuus);
+  const ownedFinns = await wapuuContract.methods.balanceOfBatch(addresses,tokens).call() 
+  //console.log("Owned Finns",ownedFinns);
 
   output = await Promise.all(tokens.map(async (tokenId) => {
-    if ( parseInt( ownedWapuus[tokenId] ) ) {
+    if ( parseInt( ownedFinns[tokenId] ) ) {
       let meta = traits[tokenId]
       if ( meta.secret_content ) { //skip special editions
         return null;

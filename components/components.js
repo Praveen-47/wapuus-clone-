@@ -14,17 +14,17 @@ export class Header extends Component {
     <link rel="icon" href="/wapuu-app/images/white-trans.png" />
   
     <meta property="og:title" content="The Wapuu NFT Collection" key="ogtitle" />
-    <meta property="og:description" content="2,222 one-of-a-kind Wapuus NFTs that can be minted, collected, and traded by the WordPress community." key="ogdesc" />
+    <meta property="og:description" content="2,222 one-of-a-kind Finns NFTs that can be minted, collected, and traded by the WordPress community." key="ogdesc" />
     <meta property="og:type" content="website" key="ogtype" />
-    <meta property="og:url" content="https://web3wp.com/wapuus/" key="ogurl"/>
+    <meta property="og:url" content="https://web3wp.com/Finns/" key="ogurl"/>
     <meta property="og:image" content="https://web3wp.infiniteuploads.cloud/2021/09/wapuu-designs-tw.png" key="ogimage"/>
     <meta property="og:site_name" content="Web3 WP" key="ogsitename" />
   
     <meta name="twitter:card" content="summary_large_image" key="twcard"/>
     <meta property="twitter:domain" content="web3wp.com" key="twdomain" />
-    <meta property="twitter:url" content="https://web3wp.com/wapuus/" key="twurl" />
+    <meta property="twitter:url" content="https://web3wp.com/Finns/" key="twurl" />
     <meta name="twitter:title" content="The Wapuu NFT Collection" key="twtitle" />
-    <meta name="twitter:description" content="2,222 one-of-a-kind Wapuus NFTs that can be minted, collected, and traded by the WordPress community." key="twdesc" />
+    <meta name="twitter:description" content="2,222 one-of-a-kind Finns NFTs that can be minted, collected, and traded by the WordPress community." key="twdesc" />
     <meta name="twitter:image" content="https://web3wp.infiniteuploads.cloud/2021/09/wapuu-designs-tw.png" key="twimage" />
   </Head>
     }
@@ -47,7 +47,7 @@ export class Navigation extends Component {
       <Link href="/og-collector">
         <a className="hidden sm:block m-1 sm:m-3 md:m-6">Badge</a>
       </Link>
-      <a href="https://web3wp.com/wapuus/" className="m-1 sm:m-3 md:m-6">About</a>
+      <a href="https://web3wp.com/Finns/" className="m-1 sm:m-3 md:m-6">About</a>
     </nav>
   </div>
   }
@@ -59,7 +59,7 @@ export function MintButton(props) {
     if (props.saleStarted) {
       return (
         <>
-        <button onClick={props.onClick} className="Poppitandfinchsans mt-4 rounded text-4xl border-6 bg-blau  text-white hover:text-gray p-2 px-4">Mint {props.wapuus} Wapuu for {(props.wapuuPrice * props.wapuus) / (10 ** 18)} ETH + Gas</button>        
+        <button onClick={props.onClick} className="Poppitandfinchsans mt-4 rounded text-4xl border-6 bg-blau  text-white hover:text-gray p-2 px-4">Mint {props.Finns} Wapuu for {(props.finnPrice * props.Finns) / (10 ** 18)} ETH + Gas</button>        
         <div className="montserrat text-center text-sm text-white mt-2">
           <Link href="https://web3wp.com/blog/how-to-mint-nft-wapuu/">
             <a className="underline">Confused? Watch our video walkthrough...</a>
@@ -121,7 +121,7 @@ export function LatestNFT() {
         .then(function (accounts) {
           window.web3.eth.net.getNetworkType()
           // checks if connected network is mainnet (change this to rinkeby if you wanna test on testnet)
-          .then((network) => {console.log(network);if(network != "main"){alert("You are on " + network+ " network. Change network to Mainnet or you won't be able to do anything here")} });  
+          .then((network) => {console.log(network);if(network != "rinkeby"){alert("You are on " + network+ " network. Change network to rinkeby or you won't be able to do anything here")} });  
           let wallet = accounts[0]
           setWalletAddress(wallet)
           setSignedIn(true)
@@ -151,9 +151,9 @@ export function LatestNFT() {
         addresses.push(walletAddress);
       }
       var myOwned = [];
-      const ownedWapuus = await wapuuContract.methods.balanceOfBatch(addresses,specials).call()
-      console.log("Owned" , ownedWapuus)
-      ownedWapuus.forEach((owned, key) => {
+      const ownedFinns = await wapuuContract.methods.balanceOfBatch(addresses,specials).call()
+      console.log("Owned" , ownedFinns)
+      ownedFinns.forEach((owned, key) => {
         if ( parseInt(owned) ) {
           myOwned.push(parseInt(specials[key]));
         }
@@ -220,7 +220,7 @@ export function LatestNFT() {
     </div><Share
       url={"https://opensea.io/assets/"+ADDRESS+"/"+latestWapuu.token+"/"} 
       options={{
-        text: "Checkout the "+latestWapuu.name+" #NFT I just minted on Web3 WP! You can mint your own at web3wp.com/wapuus/",
+        text: "Checkout the "+latestWapuu.name+" #NFT I just minted on Web3 WP! You can mint your own at web3wp.com/Finns/",
         hashtags: "Wapuu,WordPress,NFTdrop",
         via: "web3wp",
         size: "large",
@@ -239,7 +239,7 @@ export function RenameNFT() {
   const [signedIn, setSignedIn] = useState(false)
   const [walletAddress, setWalletAddress] = useState(null)
   const [wapuuContract, setWapuuContract] = useState(null)
-  const [ownedWapuus, setWapuus] = useState(false)
+  const [ownedFinns, setFinns] = useState(false)
   const [toRename, setWapuuRename] = useState(null)
   const [newName, setNewName] = useState("")
 
@@ -262,7 +262,7 @@ export function RenameNFT() {
         .then(function (accounts) {
           window.web3.eth.net.getNetworkType()
           // checks if connected network is mainnet (change this to rinkeby if you wanna test on testnet)
-          .then((network) => {console.log(network);if(network != "main"){alert("You are on " + network+ " network. Change network to Mainnet or you won't be able to do anything here")} });  
+          .then((network) => {console.log(network);if(network != "rinkeby"){alert("You are on " + network+ " network. Change network to rinkeby or you won't be able to do anything here")} });  
           let wallet = accounts[0]
           setWalletAddress(wallet)
           setSignedIn(true)
@@ -292,9 +292,9 @@ export function RenameNFT() {
       })
       .then(function (data) {
         if (data && data.owned) {
-          setWapuus(data.owned)
+          setFinns(data.owned)
         } else {
-          setError("Sorry, there was an error getting owned Wapuus.")
+          setError("Sorry, there was an error getting owned Finns.")
         }
       });
       
@@ -318,13 +318,13 @@ export function RenameNFT() {
      
       console.log(tokenId, newName)
 
-      var gasAmount = await wapuuContract.methods.changeWapuuName(tokenId, newName).estimateGas({from: walletAddress, value: price})
+      var gasAmount = await wapuuContract.methods.changeFinnName(tokenId, newName).estimateGas({from: walletAddress, value: price})
       gasAmount = Math.round(gasAmount * 1.1); //add some padding so users don't lose it in a dropped transaction (this is just limit)
       console.log("gas limit estimation = " + gasAmount + " units");
       console.log({from: walletAddress, value: price})
 
       wapuuContract.methods
-        .changeWapuuName(tokenId, newName)
+        .changeFinnName(tokenId, newName)
         .send({from: walletAddress, value: price, gas: String(gasAmount)})
         .on('error', function(error){
           setError(error.message)
@@ -350,7 +350,7 @@ export function RenameNFT() {
     }
   }
 
-  if (!ownedWapuus) { 
+  if (!ownedFinns) { 
     return (
       <>
       {contractError ? 
@@ -360,20 +360,20 @@ export function RenameNFT() {
           :''}
       <div className="flex justify-around my-3">
         <span className="flex Poppitandfinchsans text-3xl text-center text-white">
-        You can now give your non-special edition Wapuus a custom name by writing it to the blockchain! There is no fee other than gas.
+        You can now give your non-special edition Finns a custom name by writing it to the blockchain! There is no fee other than gas.
         </span>
       </div>
       <div className="text-center">
-        <button onClick={() => fetch()} className="Poppitandfinchsans mt-4 rounded text-4xl border-6 bg-blau text-white hover:text-gray p-2 px-6 mb-8">Fetch Wapuus</button>                
+        <button onClick={() => fetch()} className="Poppitandfinchsans mt-4 rounded text-4xl border-6 bg-blau text-white hover:text-gray p-2 px-6 mb-8">Fetch Finns</button>                
       </div>
       </>
     )
   }
 
-  if (ownedWapuus && !ownedWapuus.length) { 
+  if (ownedFinns && !ownedFinns.length) { 
     return (
     <>
-    <h1 className="text-center text-5xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">No renameable Wapuus are owned by this wallet.</h1>
+    <h1 className="text-center text-5xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">No renameable Finns are owned by this wallet.</h1>
     <div className="flex justify-around mt-10">
       <span className="Poppitandfinchsans text-3xl text-center text-white">
       <Link href="/">
@@ -386,7 +386,7 @@ export function RenameNFT() {
    )
   }
 
-  if (ownedWapuus && ownedWapuus.length) { 
+  if (ownedFinns && ownedFinns.length) { 
 
     if ( toRename !== null ) {
       if ( transactionWaiting ) {
@@ -396,7 +396,7 @@ export function RenameNFT() {
               <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-white"></div>
             </div>
             <div className="text-center text-5xl Poppitandfinchsans text-white my-4">
-                Renaming "{ownedWapuus[toRename].name}" to "{newName}"!
+                Renaming "{ownedFinns[toRename].name}" to "{newName}"!
             </div>
             <div className="text-center text-3xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">
                 Please be patient, the Ethereum network can be slow. You can also track the <a className="inline underline text-white hover:text-gray-200" href={"https://etherscan.io/tx/" + transactionHash} target="_blank">status of your transaction on Etherscan</a>.
@@ -407,15 +407,15 @@ export function RenameNFT() {
         return (
         <div className="flex flex-col items-center">
             <div className="text-center text-5xl Poppitandfinchsans text-white my-4">
-                Successfully renamed "{ownedWapuus[toRename].name}" to "{newName}"!
+                Successfully renamed "{ownedFinns[toRename].name}" to "{newName}"!
             </div>
             <div className="flex flex-col items-center mb-2">
               <div className="flex justify-center">
                 <div className="shadow rounded-lg overflow-hidden max-w-md">
-                  <a title="View on OpenSea" target="_blank" href={"https://opensea.io/assets/"+ADDRESS+"/"+ownedWapuus[toRename].tokenId+"/"}>
-                    <img src={ownedWapuus[toRename].external_url} className="rounded-t-lg w-full" />
+                  <a title="View on OpenSea" target="_blank" href={"https://opensea.io/assets/"+ADDRESS+"/"+ownedFinns[toRename].tokenId+"/"}>
+                    <img src={ownedFinns[toRename].external_url} className="rounded-t-lg w-full" />
                     <div className="p-2 bg-gray-50 text-center">
-                      <p className="text-3xl font-bold Poppitandfinchsans text-black">Wapuu #{ownedWapuus[toRename].tokenId} - {newName}</p>
+                      <p className="text-3xl font-bold Poppitandfinchsans text-black">Wapuu #{ownedFinns[toRename].tokenId} - {newName}</p>
                     </div>
                   </a>
                 </div>
@@ -443,9 +443,9 @@ export function RenameNFT() {
         <div className="flex flex-col items-center mb-2">
           <div className="flex justify-center">
             <div className="shadow rounded-lg overflow-hidden max-w-md">
-                <img src={ownedWapuus[toRename].external_url} className="rounded-t-lg w-full" />
+                <img src={ownedFinns[toRename].external_url} className="rounded-t-lg w-full" />
                 <div className="p-2 bg-gray-50 text-center">
-                  <p className="text-3xl font-bold Poppitandfinchsans text-black">{ownedWapuus[toRename].name}</p>
+                  <p className="text-3xl font-bold Poppitandfinchsans text-black">{ownedFinns[toRename].name}</p>
                 </div>
             </div>
           </div>
@@ -460,7 +460,7 @@ export function RenameNFT() {
           name="" 
           className="montserrat text-2xl inline bg-grey-lighter py-2 font-normal text-center rounded text-black font-bold"
             />
-            <button onClick={() => renameWapuu(ownedWapuus[toRename].tokenId, newName)} className="ml-3 Poppitandfinchsans mt-4 rounded text-2xl border-6 bg-blau text-white hover:text-gray p-2 px-6 mb-8">Name Me!</button>                
+            <button onClick={() => renameWapuu(ownedFinns[toRename].tokenId, newName)} className="ml-3 Poppitandfinchsans mt-4 rounded text-2xl border-6 bg-blau text-white hover:text-gray p-2 px-6 mb-8">Name Me!</button>                
         </div>
       <div className="flex  mt-6 Poppitandfinchsans text-3xl text-center text-white">
       <button onClick={() => setWapuuRename(null)} className="Poppitandfinchsans rounded text-2xl border-1 bg-gray-400 rounded text-black p-1 px-4">Cancel</button>
@@ -473,13 +473,13 @@ export function RenameNFT() {
       return (
         <div className="flex flex-col items-center">
             <div className="text-center text-4xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">
-                Here are the renameable Wapuus you own:
+                Here are the renameable Finns you own:
             </div>
             <div className="flex justify-center">
               <div className="p-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pt-4">
                   {
-                    ownedWapuus.map((nft, i) => (
+                    ownedFinns.map((nft, i) => (
                       <div key={i} className="shadow bg-gray-50 text-black text-justify rounded-lg overflow-hidden">
                         <img src={nft.external_url} className="rounded-t-lg w-full" />
                         <div className="p-1 text-center">

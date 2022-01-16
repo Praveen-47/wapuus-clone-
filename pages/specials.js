@@ -22,7 +22,7 @@ export default function Verify() {
 
   // INFO FROM SMART Contract
 
-  const [ownedWapuus, setOwnedWapuus] = useState([])
+  const [ownedFinns, setOwnedFinns] = useState([])
   const [nfts, setNfts] = useState([])
 
   // UI
@@ -50,7 +50,7 @@ export default function Verify() {
         .then(function (accounts) {
           window.web3.eth.net.getNetworkType()
           // checks if connected network is mainnet (change this to rinkeby if you wanna test on testnet)
-          .then((network) => {console.log(network);if(network != "main"){alert("You are on " + network+ " network. Change network to mainnet or you won't be able to do anything here")} });  
+          .then((network) => {console.log(network);if(network != "rinkeby"){alert("You are on " + network+ " network. Change network to rinkeby or you won't be able to do anything here")} });  
           let wallet = accounts[0]
           setWalletAddress(wallet)
           setSignedIn(true)
@@ -137,7 +137,7 @@ export default function Verify() {
             <div className="flex flex-col items-center">
               <div className="flex justify-around my-3">
                 <span className="flex Poppitandfinchsans text-4xl text-center text-white">
-                Verify your wallet to unlock the secret content or discounts for any special edition Wapuus you own!
+                Verify your wallet to unlock the secret content or discounts for any special edition Finns you own!
                 </span>
               </div>
 

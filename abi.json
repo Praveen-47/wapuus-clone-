@@ -55,7 +55,7 @@
 				"type": "string"
 			}
 		],
-		"name": "changeWapuuName",
+		"name": "changeFinnName",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -207,7 +207,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "mintWapuus",
+		"name": "mintFinns",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -232,7 +232,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "reserveWapuus",
+		"name": "reserveFinn",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -421,7 +421,7 @@
 				"type": "string"
 			}
 		],
-		"name": "wapuuNameChange",
+		"name": "finnNameChange",
 		"type": "event"
 	},
 	{
@@ -487,7 +487,7 @@
 				"type": "address"
 			}
 		],
-		"name": "balanceOfWapuu",
+		"name": "balanceOfFinn",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -568,7 +568,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "MAX_WAPUUS",
+		"name": "MAX_FINNS",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -581,7 +581,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "maxWapuuPurchase",
+		"name": "maxFinnPurchase",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -770,7 +770,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "WAPUU_PROVENANCE",
+		"name": "FINN_PROVENANCE",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -789,7 +789,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "wapuuNames",
+		"name": "finnNames",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -802,7 +802,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "wapuuPrice",
+		"name": "finnPrice",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -815,7 +815,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "wapuuRenamePrice",
+		"name": "finnRenamePrice",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -828,7 +828,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "wapuuReserve",
+		"name": "finnReserve",
 		"outputs": [
 			{
 				"internalType": "uint256",

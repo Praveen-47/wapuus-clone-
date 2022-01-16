@@ -13,7 +13,7 @@ export default function Mint() {
   const [walletAddress, setWalletAddress] = useState(null)
 
   // FOR MINTING
-  const [how_many_wapuus, set_how_many_wapuus] = useState(1)
+  const [how_many_Finns, set_how_many_Finns] = useState(1)
 
   const [wapuuContract, setWapuuContract] = useState(null)
 
@@ -23,7 +23,7 @@ export default function Mint() {
 
   const [saleStarted, setSaleStarted] = useState(false)
 
-  const [wapuuPrice, setWapuuPrice] = useState(0)
+  const [finnPrice, setfinnPrice] = useState(0)
 
   // UI
   const [contractError, setError] = useState(null)
@@ -51,7 +51,7 @@ export default function Mint() {
         .then(function (accounts) {
           window.web3.eth.net.getNetworkType()
           // checks if connected network is mainnet (change this to rinkeby if you wanna test on testnet)
-          .then((network) => {console.log(network);if(network != "main"){alert("You are on " + network+ " network. Change network to mainnet or you won't be able to do anything here")} });  
+          .then((network) => {console.log(network);if(network != "rinkeby"){alert("You are on " + network+ " network. Change network to rinkeby or you won't be able to do anything here")} });  
           let wallet = accounts[0]
           setWalletAddress(wallet)
           setSignedIn(true)
@@ -87,25 +87,25 @@ export default function Mint() {
     console.log("Total Supply" , totalSupply)
     setTotalSupply(totalSupply)
 
-    const wapuuPrice = await wapuuContract.methods.wapuuPrice().call() 
-    console.log("Price" , wapuuPrice)
-    setWapuuPrice(wapuuPrice)
+    const finnPrice = await wapuuContract.methods.finnPrice().call() 
+    console.log("Price" , finnPrice)
+    setfinnPrice(finnPrice)
   }
   
-  async function mintWapuu(how_many_wapuus) {
+  async function mintWapuu(how_many_Finns) {
     setError(null)
     setMinting(false)
     if (wapuuContract) {
  
-      const price = Number(wapuuPrice) * how_many_wapuus 
+      const price = Number(finnPrice) * how_many_Finns 
      
-      var gasAmount = await wapuuContract.methods.mintWapuus(how_many_wapuus).estimateGas({from: walletAddress, value: price})
+      var gasAmount = await wapuuContract.methods.mintFinns(how_many_Finns).estimateGas({from: walletAddress, value: price})
       gasAmount = Math.round(gasAmount * 1.2); //add some padding so users don't lose it in a dropped transaction (this is just limit)
       console.log("gas limit estimation = " + gasAmount + " units");
       console.log({from: walletAddress, value: price})
 
       wapuuContract.methods
-        .mintWapuus(how_many_wapuus)
+        .mintFinns(how_many_Finns)
         .send({from: walletAddress, value: price, gas: String(gasAmount)})
         .on('error', function(error){
           setError(error.message)
@@ -163,7 +163,7 @@ export default function Mint() {
                 <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-white"></div>
               </div>
               <div className="text-center text-6xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">
-                  Minting {how_many_wapuus} Wapuu!
+                  Minting {how_many_Finns} Wapuu!
               </div>
               <div className="text-center text-4xl Poppitandfinchsans text-white bg-grey-lighter my-4 ml-3">
                   Please be patient, the Ethereum network can be slow. You can also track the <a className="inline underline text-white hover:text-gray-200" href={"https://etherscan.io/tx/" + transactionHash} target="_blank">status of your transaction on Etherscan</a>.
@@ -171,8 +171,8 @@ export default function Mint() {
           </div> 
           :
           <div className="flex flex-col items-center">
-          <img src="/wapuu-app/images/wapuus.gif" width="250" className="rounded-xl"></img>
-          <span className="Poppitandfinchsans text-5xl text-white text-center my-4">TOTAL WAPUUS MINTED: <span className="ml-2 text-blau text-6xl">{!signedIn ?  <>-</>  :  <>{totalSupply}</> }/2,222</span></span>
+          <img src="/wapuu-app/images/Finns.gif" width="250" className="rounded-xl"></img>
+          <span className="Poppitandfinchsans text-5xl text-white text-center my-4">TOTAL Finns MINTED: <span className="ml-2 text-blau text-6xl">{!signedIn ?  <>-</>  :  <>{totalSupply}</> }/2,222</span></span>
 
           <div id="mint" className="flex justify-around  mt-8 mx-6">
             <span className="flex Poppitandfinchsans text-3xl text-white items-center bg-grey-lighter rounded rounded-r-none px-3 font-bold">I want</span>
@@ -181,8 +181,8 @@ export default function Mint() {
                 type="number" 
                 min="1"
                 max="40"
-                value={how_many_wapuus}
-                onChange={ e => set_how_many_wapuus(e.target.value) }
+                value={how_many_Finns}
+                onChange={ e => set_how_many_Finns(e.target.value) }
                 name="" 
                 className="Poppitandfinchsans text-4xl inline bg-grey-lighter pl-2 py-0 font-normal text-center rounded text-black font-bold"
             />
@@ -192,14 +192,14 @@ export default function Mint() {
           </div>
           <div className="flex justify-around my-3">
             <span className="flex Poppitandfinchsans text-2xl text-center text-white">
-            Tip: Minting multiple Wapuus at a time will save you a bundle in gas fees!
+            Tip: Minting multiple Finns at a time will save you a bundle in gas fees!
             </span>
           </div>
 
-          <MintButton onClick={() => mintWapuu(how_many_wapuus)} saleStarted={saleStarted} wapuus={how_many_wapuus} signedIn={signedIn} wapuuPrice={wapuuPrice} />
+          <MintButton onClick={() => mintWapuu(how_many_Finns)} saleStarted={saleStarted} Finns={how_many_Finns} signedIn={signedIn} finnPrice={finnPrice} />
 
           <div className="flex justify-around mt-20">
-            <a href="https://opensea.io/collection/wapuus" title="Browse on OpenSea" target="_blank"><img style={{width:"150px", borderRadius:"5px", boxShadow: "0px 1px 6px rgba(0, 0, 0, 0.25)"}} src="https://storage.googleapis.com/opensea-static/Logomark/Badge%20-%20Available%20On%20-%20Light.png" alt="View on OpenSea" /></a>
+            <a href="https://opensea.io/collection/Finns" title="Browse on OpenSea" target="_blank"><img style={{width:"150px", borderRadius:"5px", boxShadow: "0px 1px 6px rgba(0, 0, 0, 0.25)"}} src="https://storage.googleapis.com/opensea-static/Logomark/Badge%20-%20Available%20On%20-%20Light.png" alt="View on OpenSea" /></a>
           </div>
           
       </div> 
